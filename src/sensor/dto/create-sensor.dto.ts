@@ -1,15 +1,16 @@
-import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateSensorDto {
-  @IsNotEmpty()
   @IsString()
   name: string;
 
-  @IsNotEmpty()
   @IsString()
   type: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @IsNumber()
+  value?: number;
+
   @IsNumber()
   deviceId: number;
 }

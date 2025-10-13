@@ -1,43 +1,68 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sensor } from './sensor.entity';
 import { CreateSensorDto } from './dto/create-sensor.dto';
 import { UpdateSensorDto } from './dto/update-sensor.dto';
 import { DeviceService } from '../device/device.service';
+import { Device } from '../device/device.entity';
 
 @Injectable()
 export class SensorService {
   constructor(
     @InjectRepository(Sensor)
-    private sensorRepo: Repository<Sensor>,
-    private deviceService: DeviceService,
+    private readonly sensorRepo: Repository<Sensor>,
+
+    private readonly deviceService: DeviceService,
   ) { }
 
   async create(dto: CreateSensorDto): Promise<Sensor> {
-    const device = await this.deviceService.findOne(dto.deviceId);
+    if (!dto.deviceId) {
+      throw new BadRequestException('deviceId is required when creating a sensor');
+    }
+
+    const device: Device = await this.deviceService.findOne(dto.deviceId);
+    if (!device) {
+      throw new NotFoundException(`Device #${dto.deviceId} not found`);
+    }
+
     const sensor = this.sensorRepo.create({
       name: dto.name,
       type: dto.type,
-      device
+      value: dto.value ?? 0,
+      device,
     });
-    return this.sensorRepo.save(sensor);
+
+    return await this.sensorRepo.save(sensor);
   }
 
   async findAll(): Promise<Sensor[]> {
-    return this.sensorRepo.find({ relations: ['device'] });
+    return await this.sensorRepo.find({ relations: ['device'] });
   }
 
   async findOne(id: number): Promise<Sensor> {
-    const sensor = await this.sensorRepo.findOne({ where: { id }, relations: ['device'] });
-    if (!sensor) throw new NotFoundException(`Sensor #${id} not found`);
+    const sensor = await this.sensorRepo.findOne({
+      where: { id },
+      relations: ['device'],
+    });
+
+    if (!sensor) {
+      throw new NotFoundException(`Sensor #${id} not found`);
+    }
+
     return sensor;
   }
 
   async update(id: number, dto: UpdateSensorDto): Promise<Sensor> {
     const sensor = await this.findOne(id);
+
+    if (dto.deviceId) {
+      const device = await this.deviceService.findOne(dto.deviceId);
+      sensor.device = device;
+    }
+
     Object.assign(sensor, dto);
-    return this.sensorRepo.save(sensor);
+    return await this.sensorRepo.save(sensor);
   }
 
   async remove(id: number): Promise<void> {
@@ -48,6 +73,6 @@ export class SensorService {
   async updateValue(id: number, value: number): Promise<Sensor> {
     const sensor = await this.findOne(id);
     sensor.value = value;
-    return this.sensorRepo.save(sensor);
+    return await this.sensorRepo.save(sensor);
   }
 }

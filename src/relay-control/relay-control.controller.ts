@@ -1,23 +1,35 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { RelayControlService } from './relay-control.service';
-import { CreateRelayControlDto } from './dto/create-relay-control.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('relay-controls')
 export class RelayControlController {
   constructor(private readonly relayService: RelayControlService) { }
 
-  @Post()
-  async create(@Body() dto: CreateRelayControlDto) {
-    return this.relayService.create(dto);
-  }
-
   @Get()
   async findAll() {
-    return this.relayService.findAll();
+    const logs = await this.relayService.findAll();
+    return {
+      message: 'Fetched all relay control logs',
+      count: logs.length,
+      data: logs,
+    };
   }
 
-  @Get('device/:deviceId')
-  async findByDevice(@Param('deviceId') deviceId: number) {
-    return this.relayService.findByDevice(deviceId);
+  @Get('device/:id')
+  async findByDevice(@Param('id', ParseIntPipe) deviceId: number) {
+    const logs = await this.relayService.findByDevice(deviceId);
+    return {
+      message: `Fetched relay control logs for device #${deviceId}`,
+      count: logs.length,
+      data: logs,
+    };
   }
 }

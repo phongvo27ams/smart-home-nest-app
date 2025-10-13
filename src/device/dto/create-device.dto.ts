@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsOptional, IsBoolean, IsInt, Min } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsNumber, IsBoolean, IsInt, Min } from 'class-validator';
 
 export class CreateDeviceDto {
   @IsNotEmpty()
@@ -21,4 +21,8 @@ export class CreateDeviceDto {
   @IsInt()
   @Min(1)
   priority?: number;
+
+  @IsOptional()
+  @IsNumber()
+  powerValue?: number;
 }

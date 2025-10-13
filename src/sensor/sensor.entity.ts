@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Device } from '../device/device.entity';
 
 @Entity('sensors')
@@ -15,7 +23,8 @@ export class Sensor {
   @Column('float', { default: 0 })
   value: number;
 
-  @ManyToOne(() => Device, (device) => device.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Device, { eager: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'deviceId' })
   device: Device;
 
   @CreateDateColumn()

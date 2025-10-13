@@ -1,8 +1,19 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards, ParseIntPipe, Request  } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Request,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('devices')
@@ -10,37 +21,60 @@ export class DeviceController {
   constructor(private readonly deviceService: DeviceService) { }
 
   @Post()
-  create(@Body() createDeviceDto: CreateDeviceDto) {
-    return this.deviceService.create(createDeviceDto);
+  async create(@Body() createDeviceDto: CreateDeviceDto) {
+    const newDevice = await this.deviceService.create(createDeviceDto);
+    return {
+      message: 'Device created successfully',
+      data: newDevice,
+    };
   }
 
   @Get()
-  findAll() {
-    return this.deviceService.findAll();
+  async findAll() {
+    const devices = await this.deviceService.findAll();
+    return {
+      message: 'Devices fetched successfully',
+      count: devices.length,
+      data: devices,
+    };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.deviceService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const device = await this.deviceService.findOne(id);
+    return {
+      message: `Device #${id} fetched successfully`,
+      data: device,
+    };
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateDeviceDto: UpdateDeviceDto) {
-    return this.deviceService.update(+id, updateDeviceDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateDeviceDto: UpdateDeviceDto,
+  ) {
+    const updatedDevice = await this.deviceService.update(id, updateDeviceDto);
+    return {
+      message: `Device #${id} updated successfully`,
+      data: updatedDevice,
+    };
   }
 
   @Post(':id/toggle')
-  async toggle(
-    @Param('id', ParseIntPipe) id: number,
-    @Request() req,
-  ) {
+  async toggle(@Param('id', ParseIntPipe) id: number, @Request() req) {
     const userId = req.user?.userId;
     const updatedDevice = await this.deviceService.toggleDevice(id, userId);
-    return { message: 'Device toggled', data: updatedDevice };
+    return {
+      message: 'Device toggled successfully',
+      data: updatedDevice,
+    };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.deviceService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    await this.deviceService.remove(id);
+    return {
+      message: `Device #${id} deleted successfully`,
+    };
   }
 }

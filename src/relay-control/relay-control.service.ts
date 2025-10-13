@@ -15,7 +15,7 @@ export class RelayControlService {
 
     @Inject(forwardRef(() => DeviceService))
     private deviceService: DeviceService,
-    
+
     private userService: UserService,
   ) { }
 
@@ -39,12 +39,16 @@ export class RelayControlService {
   }
 
   async findAll(): Promise<RelayControl[]> {
-    return this.relayRepository.find({ order: { timestamp: 'DESC' } });
+    return this.relayRepository.find({
+      relations: ['device', 'user'],
+      order: { timestamp: 'DESC' },
+    });
   }
 
   async findByDevice(deviceId: number): Promise<RelayControl[]> {
     return this.relayRepository.find({
       where: { device: { id: deviceId } },
+      relations: ['device', 'user'],
       order: { timestamp: 'DESC' },
     });
   }

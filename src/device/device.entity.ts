@@ -20,6 +20,9 @@ export class Device {
   @Column({ default: 1 })
   priority: number;
 
+  @Column({ type: 'float', nullable: true })
+  powerValue?: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
