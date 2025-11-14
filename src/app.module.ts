@@ -9,10 +9,12 @@ import { RelayControlModule } from './relay-control/relay-control.module';
 import { SensorModule } from './sensor/sensor.module';
 import { UserModule } from './user/user.module';
 import { MqttModule } from './mqtt/mqtt.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -24,6 +26,13 @@ import { MqttModule } from './mqtt/mqtt.module';
       synchronize: true,
       // dropSchema: true
     }),
+
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET || 'MY_DEFAULT_SECRET',
+      signOptions: { expiresIn: '7d' },
+    }),
+
     AuthModule,
     DeviceModule,
     EnergyConsumptionModule,
