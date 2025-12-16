@@ -74,4 +74,23 @@ export class DeviceService {
 
     return device;
   }
+
+  async setBrightness(deviceId: number, brightness: number) {
+    if (!Number.isInteger(brightness) || brightness < 0 || brightness > 100) {
+      throw new Error('Brightness must be an integer between 0 and 100');
+    }
+
+    const device = await this.findOne(deviceId);
+
+    if (!device.mqttTopic) {
+      console.warn(`Device ${device.id} (${device.name}) has no MQTT topic defined.`);
+      return device;
+    }
+
+    const message = String(brightness);
+    this.mqttService.publish(device.mqttTopic, message);
+    console.log(`MQTT: Sent brightness ${message} to ${device.mqttTopic}`);
+
+    return device;
+  }
 }

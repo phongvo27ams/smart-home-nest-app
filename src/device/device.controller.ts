@@ -94,6 +94,31 @@ export class DeviceController {
     }
   }
 
+  @Post(':id/brightness')
+  async setBrightness(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('brightness') brightness: number,
+  ) {
+    const updatedDevice = await this.deviceService.setBrightness(id, brightness);
+
+    if (!updatedDevice.mqttTopic) {
+      throw new NotFoundException(
+        `Device #${id} (${updatedDevice.name}) does not have an MQTT topic.`,
+      );
+    }
+
+    return {
+      success: true,
+      message: `Brightness set to ${brightness} for device "${updatedDevice.name}"`,
+      data: {
+        id: updatedDevice.id,
+        name: updatedDevice.name,
+        mqttTopic: updatedDevice.mqttTopic,
+        brightness,
+      },
+    };
+  }
+
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
     await this.deviceService.remove(id);
