@@ -7,7 +7,7 @@ async function bootstrap() {
   app.useLogger(['log', 'error', 'warn', 'debug', 'verbose']);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector))); // Reflector Interceptor must be called before listen
   app.enableCors();
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3001);
 }
 
 bootstrap();
