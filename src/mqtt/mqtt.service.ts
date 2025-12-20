@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as mqtt from 'mqtt';
 import { Device } from '../device/device.entity';
+import { MqttLogService } from './mqtt-log.service';
+import { MqttWatchRule } from './mqtt-watch-rule.entity';
 
 @Injectable()
 export class MqttService implements OnModuleInit, OnModuleDestroy {
@@ -19,6 +21,9 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
   constructor(
     @InjectRepository(Device)
     private readonly deviceRepo: Repository<Device>,
+    @InjectRepository(MqttWatchRule)
+    private readonly watchRepo: Repository<MqttWatchRule>,
+    private readonly mqttLogService: MqttLogService,
   ) { }
 
   async onModuleInit() {
@@ -40,7 +45,17 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
       const devices = await this.deviceRepo.find();
       for (const device of devices) {
         const topic = device.mqttTopic;
-        this.subscribe(topic);
+        if (topic) this.subscribe(topic);
+      }
+
+      // Subscribe to existing watch topics
+      try {
+        const rules = await this.watchRepo.find();
+        const uniqueTopics = Array.from(new Set(rules.map((r) => r.topic)));
+        for (const t of uniqueTopics) this.subscribe(t);
+        this.logger.log(`Subscribed to ${uniqueTopics.length} watch topics`);
+      } catch (e) {
+        this.logger.warn(`Failed to load watch topics: ${e?.message || e}`);
       }
     });
 
@@ -52,6 +67,10 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
     this.client.on('message', (topic, message) => {
       this.logger.debug(`Received [${topic}]: ${message.toString()}`);
       if (this.onMessageCallback) this.onMessageCallback(topic, message);
+      // Log if necessary
+      this.mqttLogService.logIfHigh(topic, message).catch((e) =>
+        this.logger.error(`MQTT logIfHigh error: ${e?.message || e}`),
+      );
     });
   }
 
@@ -66,11 +85,22 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
   }
 
   subscribe(topic: string) {
+    if (!topic) return;
     if (!this.client?.connected)
       return this.logger.warn(`MQTT not connected, will subscribe to ${topic} later`);
     this.client.subscribe(topic, { qos: 0 }, (err) => {
       if (err) this.logger.error(`Subscribe error: ${err.message}`);
       else this.logger.log(`Subscribed to ${topic}`);
+    });
+  }
+
+  unsubscribe(topic: string) {
+    if (!topic) return;
+    if (!this.client?.connected)
+      return this.logger.warn(`MQTT not connected, cannot unsubscribe ${topic} now`);
+    this.client.unsubscribe(topic, (err) => {
+      if (err) this.logger.error(`Unsubscribe error: ${err.message}`);
+      else this.logger.log(`Unsubscribed from ${topic}`);
     });
   }
 

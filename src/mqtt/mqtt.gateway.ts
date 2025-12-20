@@ -13,7 +13,22 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtWsGuard } from '../auth/jwt-ws.guard';
 
 @WebSocketGateway({
-  cors: { origin: 'http://localhost:3001' },
+  cors: {
+    origin: (origin, callback) => {
+      const allowed = [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        process.env.FRONTEND_ORIGIN,
+      ].filter(Boolean) as string[];
+
+      if (!origin || allowed.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
+    credentials: false,
+  },
 })
 @Injectable()
 export class MqttGateway implements OnGatewayInit {

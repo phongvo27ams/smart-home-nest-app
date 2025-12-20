@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 17.4
+-- Dumped from database version 16.11 (Ubuntu 16.11-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 17.4
 
--- Started on 2025-12-13 18:23:40
+-- Started on 2025-12-16 16:04:07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,7 +24,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 220 (class 1259 OID 32784)
+-- TOC entry 215 (class 1259 OID 24834)
 -- Name: devices; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -45,7 +45,7 @@ CREATE TABLE public.devices (
 ALTER TABLE public.devices OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 32783)
+-- TOC entry 216 (class 1259 OID 24843)
 -- Name: devices_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -61,8 +61,8 @@ CREATE SEQUENCE public.devices_id_seq
 ALTER SEQUENCE public.devices_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4852 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3456 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: devices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -70,7 +70,7 @@ ALTER SEQUENCE public.devices_id_seq OWNED BY public.devices.id;
 
 
 --
--- TOC entry 224 (class 1259 OID 32808)
+-- TOC entry 217 (class 1259 OID 24844)
 -- Name: energy_consumptions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -86,7 +86,7 @@ CREATE TABLE public.energy_consumptions (
 ALTER TABLE public.energy_consumptions OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 32807)
+-- TOC entry 218 (class 1259 OID 24848)
 -- Name: energy_consumptions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -102,8 +102,8 @@ CREATE SEQUENCE public.energy_consumptions_id_seq
 ALTER SEQUENCE public.energy_consumptions_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4853 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 3457 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: energy_consumptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -111,7 +111,7 @@ ALTER SEQUENCE public.energy_consumptions_id_seq OWNED BY public.energy_consumpt
 
 
 --
--- TOC entry 222 (class 1259 OID 32797)
+-- TOC entry 219 (class 1259 OID 24849)
 -- Name: relay_controls; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -128,7 +128,7 @@ CREATE TABLE public.relay_controls (
 ALTER TABLE public.relay_controls OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 32796)
+-- TOC entry 220 (class 1259 OID 24856)
 -- Name: relay_controls_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -144,8 +144,8 @@ CREATE SEQUENCE public.relay_controls_id_seq
 ALTER SEQUENCE public.relay_controls_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4854 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3458 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: relay_controls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -153,7 +153,7 @@ ALTER SEQUENCE public.relay_controls_id_seq OWNED BY public.relay_controls.id;
 
 
 --
--- TOC entry 226 (class 1259 OID 32816)
+-- TOC entry 221 (class 1259 OID 24857)
 -- Name: sensors; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -171,7 +171,7 @@ CREATE TABLE public.sensors (
 ALTER TABLE public.sensors OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 32815)
+-- TOC entry 222 (class 1259 OID 24865)
 -- Name: sensors_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -187,8 +187,8 @@ CREATE SEQUENCE public.sensors_id_seq
 ALTER SEQUENCE public.sensors_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4855 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 3459 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: sensors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -196,7 +196,7 @@ ALTER SEQUENCE public.sensors_id_seq OWNED BY public.sensors.id;
 
 
 --
--- TOC entry 218 (class 1259 OID 32773)
+-- TOC entry 223 (class 1259 OID 24866)
 -- Name: user; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -213,7 +213,7 @@ CREATE TABLE public."user" (
 ALTER TABLE public."user" OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 32772)
+-- TOC entry 224 (class 1259 OID 24871)
 -- Name: user_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -229,8 +229,8 @@ CREATE SEQUENCE public.user_user_id_seq
 ALTER SEQUENCE public.user_user_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4856 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3460 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: user_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -238,7 +238,7 @@ ALTER SEQUENCE public.user_user_id_seq OWNED BY public."user".user_id;
 
 
 --
--- TOC entry 4662 (class 2604 OID 32787)
+-- TOC entry 3267 (class 2604 OID 24872)
 -- Name: devices id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -246,7 +246,7 @@ ALTER TABLE ONLY public.devices ALTER COLUMN id SET DEFAULT nextval('public.devi
 
 
 --
--- TOC entry 4670 (class 2604 OID 32811)
+-- TOC entry 3272 (class 2604 OID 24873)
 -- Name: energy_consumptions id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -254,7 +254,7 @@ ALTER TABLE ONLY public.energy_consumptions ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 4667 (class 2604 OID 32800)
+-- TOC entry 3274 (class 2604 OID 24874)
 -- Name: relay_controls id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -262,7 +262,7 @@ ALTER TABLE ONLY public.relay_controls ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 4672 (class 2604 OID 32819)
+-- TOC entry 3277 (class 2604 OID 24875)
 -- Name: sensors id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -270,7 +270,7 @@ ALTER TABLE ONLY public.sensors ALTER COLUMN id SET DEFAULT nextval('public.sens
 
 
 --
--- TOC entry 4661 (class 2604 OID 32776)
+-- TOC entry 3281 (class 2604 OID 24876)
 -- Name: user user_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -278,8 +278,8 @@ ALTER TABLE ONLY public."user" ALTER COLUMN user_id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 4840 (class 0 OID 32784)
--- Dependencies: 220
+-- TOC entry 3441 (class 0 OID 24834)
+-- Dependencies: 215
 -- Data for Name: devices; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -287,18 +287,19 @@ COPY public.devices (id, name, type, "isOn", description, priority, "powerValue"
 18	Humidity Sensor	sensor	f	A device that measures the amount of water vapor (humidity) in the air. Used for monitoring environmental conditions and optimizing indoor climate.	1	\N	2025-11-20 15:16:17.0508	2025-12-13 10:46:21.088481	27C45UV/feeds/V2
 13	Relay Switch	relay	f	An electrically operated switch used to turn devices (like lights, fans, or appliances) on or off remotely by controlling the power supply.	1	\N	2025-11-19 11:41:05.85923	2025-12-13 10:46:34.812348	27C45UV/feeds/V16
 12	Speaker	speaker	f	An audio output device used for playing sounds, music, or voice notifications. It can be integrated for alerts or home entertainment systems.	1	\N	2025-11-19 11:36:26.92955	2025-12-13 10:46:45.170375	27C45UV/feeds/V13
-11	Fan Auto	fan	f	A fan that can be programmed or triggered by sensor data (e.g., temperature) to adjust its speed or turn on/off without manual input.	1	\N	2025-11-19 11:35:28.602421	2025-12-13 10:47:03.530174	27C45UV/feeds/V15
 10	LED Light Auto	light	f	An LED lighting unit with automated control capabilities, allowing it to be scheduled or activated based on conditions (e.g., motion or light levels).	1	\N	2025-11-19 11:34:04.516666	2025-12-13 10:47:13.126703	27C45UV/feeds/V14
-8	Fan	fan	f	A motor-driven appliance used to circulate air and provide cooling. It is controlled manually or remotely via the app.	1	\N	2025-11-19 11:06:55.463179	2025-12-13 10:47:20.637724	27C45UV/feeds/V10
-5	LED Light	light	f	A standard lighting fixture that uses LED technology for illumination. Its state (on/off) and sometimes brightness are controlled remotely.	2	70	2025-11-19 10:19:14.849669	2025-12-13 10:47:27.078506	27C45UV/feeds/V11
-2	Light Sensor	sensor	f	A component that detects and measures the intensity of ambient light. Often used to automatically control lights or blinds.	1	20	2025-11-12 14:28:17.617603	2025-12-13 10:47:41.39326	27C45UV/feeds/V4
-1	Temperature Sensor	sensor	f	A device that measures the heat level (temperature) of its surroundings. Essential for climate control and thermal monitoring.	1	70	2025-10-13 09:30:24.257254	2025-12-13 10:49:39.080247	27C45UV/feeds/V1
+21	LED Brightness	brightness	f	Controls the luminous output of the LEDs, allowing the user to increase or decrease the light intensity.	1	\N	2025-12-16 12:12:24.688739	2025-12-16 12:12:24.688739	27C45UV/feeds/V12
+5	LED Light	light	f	A standard lighting fixture that uses LED technology for illumination. Its state (on/off) and sometimes brightness are controlled remotely.	1	\N	2025-11-19 10:19:14.849669	2025-12-16 14:04:09.431949	27C45UV/feeds/V11
+1	Temperature Sensor	sensor	f	A device that measures the heat level (temperature) of its surroundings. Essential for climate control and thermal monitoring.	1	\N	2025-10-13 09:30:24.257254	2025-12-13 10:49:39.080247	27C45UV/feeds/V1
+2	Light Sensor	sensor	f	A component that detects and measures the intensity of ambient light. Often used to automatically control lights or blinds.	1	\N	2025-11-12 14:28:17.617603	2025-12-13 10:47:41.39326	27C45UV/feeds/V4
+11	Fan Auto	fan	f	A fan that can be programmed or triggered by sensor data (e.g., temperature) to adjust its speed or turn on/off without manual input.	1	\N	2025-11-19 11:35:28.602421	2025-12-16 13:50:40.499537	27C45UV/feeds/V15
+8	Fan	fan	f	A motor-driven appliance used to circulate air and provide cooling. It is controlled manually or remotely via the app.	1	\N	2025-11-19 11:06:55.463179	2025-12-16 13:50:45.455695	27C45UV/feeds/V10
 \.
 
 
 --
--- TOC entry 4844 (class 0 OID 32808)
--- Dependencies: 224
+-- TOC entry 3443 (class 0 OID 24844)
+-- Dependencies: 217
 -- Data for Name: energy_consumptions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -307,8 +308,8 @@ COPY public.energy_consumptions (id, power_value, total_power, "timestamp", "dev
 
 
 --
--- TOC entry 4842 (class 0 OID 32797)
--- Dependencies: 222
+-- TOC entry 3445 (class 0 OID 24849)
+-- Dependencies: 219
 -- Data for Name: relay_controls; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -472,12 +473,28 @@ COPY public.relay_controls (id, action, "isAutomatic", "timestamp", "deviceId", 
 151	OFF	f	2025-11-26 16:16:33.7861	12	3
 153	OFF	f	2025-11-26 16:19:09.7861	11	3
 154	ON	f	2025-11-26 16:19:33.7861	8	3
+160	ON	f	2025-12-16 13:46:14.975742	5	1
+161	OFF	f	2025-12-16 13:46:15.979158	5	1
+162	ON	f	2025-12-16 13:46:56.979148	5	1
+163	OFF	f	2025-12-16 13:46:58.755976	5	1
+164	ON	f	2025-12-16 13:47:55.378737	5	1
+165	OFF	f	2025-12-16 13:49:56.57508	5	1
+166	ON	f	2025-12-16 13:49:58.615464	5	1
+167	OFF	f	2025-12-16 13:50:14.411898	5	1
+168	ON	f	2025-12-16 13:50:32.113518	11	1
+169	OFF	f	2025-12-16 13:50:40.513989	11	1
+170	ON	f	2025-12-16 13:50:44.761943	8	1
+171	OFF	f	2025-12-16 13:50:45.483649	8	1
+172	ON	f	2025-12-16 14:01:08.35147	5	1
+173	OFF	f	2025-12-16 14:01:17.498725	5	1
+174	ON	f	2025-12-16 14:01:21.969904	5	1
+175	OFF	f	2025-12-16 14:04:09.447853	5	1
 \.
 
 
 --
--- TOC entry 4846 (class 0 OID 32816)
--- Dependencies: 226
+-- TOC entry 3447 (class 0 OID 24857)
+-- Dependencies: 221
 -- Data for Name: sensors; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -487,8 +504,8 @@ COPY public.sensors (id, name, type, value, "createdAt", "updatedAt", "deviceId"
 
 
 --
--- TOC entry 4838 (class 0 OID 32773)
--- Dependencies: 218
+-- TOC entry 3449 (class 0 OID 24866)
+-- Dependencies: 223
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -499,17 +516,17 @@ COPY public."user" (user_id, username, password, first_name, last_name, email) F
 
 
 --
--- TOC entry 4857 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3461 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: devices_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.devices_id_seq', 19, true);
+SELECT pg_catalog.setval('public.devices_id_seq', 22, true);
 
 
 --
--- TOC entry 4858 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 3462 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: energy_consumptions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -517,17 +534,17 @@ SELECT pg_catalog.setval('public.energy_consumptions_id_seq', 1, false);
 
 
 --
--- TOC entry 4859 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3463 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: relay_controls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.relay_controls_id_seq', 159, true);
+SELECT pg_catalog.setval('public.relay_controls_id_seq', 175, true);
 
 
 --
--- TOC entry 4860 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 3464 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: sensors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -535,8 +552,8 @@ SELECT pg_catalog.setval('public.sensors_id_seq', 1, true);
 
 
 --
--- TOC entry 4861 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3465 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: user_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -544,7 +561,7 @@ SELECT pg_catalog.setval('public.user_user_id_seq', 3, true);
 
 
 --
--- TOC entry 4683 (class 2606 OID 32806)
+-- TOC entry 3287 (class 2606 OID 24878)
 -- Name: relay_controls PK_135e1ae312fe5153c8de6d30a6b; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -553,7 +570,7 @@ ALTER TABLE ONLY public.relay_controls
 
 
 --
--- TOC entry 4685 (class 2606 OID 32814)
+-- TOC entry 3285 (class 2606 OID 24880)
 -- Name: energy_consumptions PK_391ca233b9963379f65507ea121; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -562,7 +579,7 @@ ALTER TABLE ONLY public.energy_consumptions
 
 
 --
--- TOC entry 4677 (class 2606 OID 32780)
+-- TOC entry 3291 (class 2606 OID 24882)
 -- Name: user PK_758b8ce7c18b9d347461b30228d; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -571,7 +588,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 4681 (class 2606 OID 32795)
+-- TOC entry 3283 (class 2606 OID 24884)
 -- Name: devices PK_b1514758245c12daf43486dd1f0; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -580,7 +597,7 @@ ALTER TABLE ONLY public.devices
 
 
 --
--- TOC entry 4687 (class 2606 OID 32826)
+-- TOC entry 3289 (class 2606 OID 24886)
 -- Name: sensors PK_b8bd5fcfd700e39e96bcd9ba6b7; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -589,7 +606,7 @@ ALTER TABLE ONLY public.sensors
 
 
 --
--- TOC entry 4679 (class 2606 OID 32782)
+-- TOC entry 3293 (class 2606 OID 24888)
 -- Name: user UQ_78a916df40e02a9deb1c4b75edb; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -598,7 +615,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 4691 (class 2606 OID 32842)
+-- TOC entry 3297 (class 2606 OID 24889)
 -- Name: sensors FK_3759b1beed2510810f208c5fc1d; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -607,7 +624,7 @@ ALTER TABLE ONLY public.sensors
 
 
 --
--- TOC entry 4688 (class 2606 OID 32832)
+-- TOC entry 3295 (class 2606 OID 24894)
 -- Name: relay_controls FK_52914daf6881f903b7cfde943a3; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -616,7 +633,7 @@ ALTER TABLE ONLY public.relay_controls
 
 
 --
--- TOC entry 4689 (class 2606 OID 32827)
+-- TOC entry 3296 (class 2606 OID 24899)
 -- Name: relay_controls FK_65eb5bbe276ac41426273961418; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -625,7 +642,7 @@ ALTER TABLE ONLY public.relay_controls
 
 
 --
--- TOC entry 4690 (class 2606 OID 32837)
+-- TOC entry 3294 (class 2606 OID 24904)
 -- Name: energy_consumptions FK_d7a067d045cfa8dec3cb3baa746; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -633,7 +650,7 @@ ALTER TABLE ONLY public.energy_consumptions
     ADD CONSTRAINT "FK_d7a067d045cfa8dec3cb3baa746" FOREIGN KEY ("deviceId") REFERENCES public.devices(id) ON DELETE CASCADE;
 
 
--- Completed on 2025-12-13 18:23:41
+-- Completed on 2025-12-16 16:04:07
 
 --
 -- PostgreSQL database dump complete
