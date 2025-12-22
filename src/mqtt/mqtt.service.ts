@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as mqtt from 'mqtt';
 import { Device } from '../device/device.entity';
-import { MqttLogService } from './mqtt-log.service';
 import { MqttWatchRule } from './mqtt-watch-rule.entity';
 
 @Injectable()
@@ -23,7 +22,6 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
     private readonly deviceRepo: Repository<Device>,
     @InjectRepository(MqttWatchRule)
     private readonly watchRepo: Repository<MqttWatchRule>,
-    private readonly mqttLogService: MqttLogService,
   ) { }
 
   async onModuleInit() {
@@ -67,10 +65,7 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
     this.client.on('message', (topic, message) => {
       this.logger.debug(`Received [${topic}]: ${message.toString()}`);
       if (this.onMessageCallback) this.onMessageCallback(topic, message);
-      // Log if necessary
-      this.mqttLogService.logIfHigh(topic, message).catch((e) =>
-        this.logger.error(`MQTT logIfHigh error: ${e?.message || e}`),
-      );
+      // No persistence of over-threshold data anymore
     });
   }
 

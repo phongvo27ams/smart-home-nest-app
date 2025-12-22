@@ -26,7 +26,7 @@ import { JwtModule } from '@nestjs/jwt';
       synchronize: false,
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       migrationsRun: true,
-      // dropSchema: true
+      dropSchema: false,
     }),
 
     JwtModule.register({
