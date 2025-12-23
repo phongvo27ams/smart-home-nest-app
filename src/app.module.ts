@@ -24,7 +24,9 @@ import { JwtModule } from '@nestjs/jwt';
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: false,
-      // dropSchema: true
+      migrations: [__dirname + '/migrations/*{.ts,.js}'],
+      migrationsRun: true,
+      dropSchema: false,
     }),
 
     JwtModule.register({
